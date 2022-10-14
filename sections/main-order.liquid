@@ -14,14 +14,14 @@
   }
 {%- endstyle -%}
 
-<div class="customer order section-{{ section.id }}-padding">
+<div>
   <svg style="display:none">
     <symbol id="icon-discount" viewBox="0 0 12 12">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M7 0h3a2 2 0 012 2v3a1 1 0 01-.3.7l-6 6a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4l6-6A1 1 0 017 0zm2 2a1 1 0 102 0 1 1 0 00-2 0z" fill="currentColor">
     </symbol>
   </svg>
   <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
+    <h1>{{ 'customer.account.title' | t }}</h1>
     <a href="{{ routes.account_url }}">{{ 'customer.account.return' | t }}</a>
   </div>
 
@@ -36,8 +36,8 @@
         <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason_label }}</p>
       {%- endif -%}
 
-      <table role="table" class="order-details">
-        <caption class="visually-hidden">{{ 'customer.order.title' | t: name: order.name }}</caption>
+      <table role="table">
+        <caption>{{ 'customer.order.title' | t: name: order.name }}</caption>
         <thead role="rowgroup">
           <tr role="row">
             <th id="ColumnProduct" scope="col" role="columnheader">{{ 'customer.order.product' | t }}</th>
@@ -65,7 +65,7 @@
                   {%- endif -%}
                   {%- assign property_size = line_item.properties | size -%}
                   {%- unless line_item.selling_plan_allocation == nil and property_size == 0 -%}
-                    <div class="properties">
+                    <div>
                       {%- unless line_item.product.has_only_default_variant -%}
                         <span>
                           {{ line_item.variant.title }}
@@ -108,7 +108,7 @@
                   {%- endif -%}
 
                   {%- if line_item.fulfillment -%}
-                    <div class="fulfillment">
+                    <div>
                       {%- assign created_at = line_item.fulfillment.created_at | time_tag: format: 'date' -%}
                       <span>{{ 'customer.order.fulfilled_at_html' | t: date: created_at }}</span>
 
@@ -141,20 +141,20 @@
                   <dl>
                     {%- if line_item.original_price != line_item.final_price -%}
                       <dt>
-                        <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                        <span>{{ 'products.product.price.regular_price' | t }}</span>
                       </dt>
-                      <dd class="regular-price">
+                      <dd>
                         <s>{{ line_item.original_price | money }}</s>
                       </dd>
                       <dt>
-                        <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                        <span>{{ 'products.product.price.sale_price' | t }}</span>
                       </dt>
                       <dd>
                         <span>{{ line_item.final_price | money }}</span>
                       </dd>
                     {%- else -%}
                       <dt>
-                        <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                        <span>{{ 'products.product.price.regular_price' | t }}</span>
                       </dt>
                       <dd>
                         {{ line_item.original_price | money }}
@@ -162,12 +162,12 @@
                     {%- endif -%}
                     {%- if line_item.unit_price_measurement -%}
                       <dt>
-                        <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                        <span>{{ 'products.product.price.unit_price' | t }}</span>
                       </dt>
-                      <dd class="unit-price">
+                      <dd>
                         <span>
                           {%- capture unit_price_separator -%}
-                            <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+                            <span aria-hidden="true">/</span><span>{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
                           {%- endcapture -%}
                           {%- capture unit_price_base_unit -%}
                             {%- if line_item.unit_price_measurement.reference_value != 1 -%}
@@ -199,13 +199,13 @@
                 {%- if line_item.original_line_price != line_item.final_line_price -%}
                   <dl>
                     <dt>
-                      <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                      <span>{{ 'products.product.price.regular_price' | t }}</span>
                     </dt>
-                    <dd class="regular-price">
+                    <dd>
                       <s>{{ line_item.original_line_price | money }}</s>
                     </dd>
                     <dt>
-                      <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                      <span>{{ 'products.product.price.sale_price' | t }}</span>
                     </dt>
                     <dd>
                       <span>{{ line_item.final_line_price | money }}</span>
@@ -230,7 +230,7 @@
               {%- for discount_application in order.cart_level_discount_applications -%}
                 <td id="RowDiscount" role="rowheader" scope="row" colspan="4">
                   {{ 'customer.order.discount' | t }}
-                  <span class="cart-discount">
+                  <span>
                     <svg aria-hidden="true" focusable="false" viewBox="0 0 12 12">
                       <use href="#icon-discount" />
                     </svg>
@@ -240,7 +240,7 @@
                 <td headers="RowDiscount" role="cell" data-label="{{ 'customer.order.discount' | t }}">
                   <div>
                     <span>-{{ discount_application.total_allocated_amount | money }}</span>
-                    <span class="cart-discount">
+                    <span>
                       <svg aria-hidden="true" focusable="false" viewBox="0 0 12 12">
                         <use href="#icon-discount" />
                       </svg>
